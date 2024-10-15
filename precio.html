@@ -11,6 +11,7 @@
             font-family: 'Times New Roman', Times, serif, sans-serif;
             margin: 0;
             padding: 0;
+            color: whitesmoke;
         }
         .header {
             position: fixed;
@@ -46,6 +47,40 @@
         .center {
             text-align: center;
 
+        }
+
+        footer {
+            background-color: black;
+            color: whitesmoke;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.1); 
+            color: whitesmoke;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid whitesmoke; 
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: whitesmoke; 
+        }
+        button {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
         }
     </style>
 </head>
@@ -107,6 +142,39 @@
                 <center> <img style="border-radius: 15px 15px 15px 15px; width: 1080px; height: 566px;" src="https://es.dodge.com/content/dam/fca-brands/na/dodge/en_us/2023/charger/gallery/desktop/MY23Charger_Gallery_1.jpg" alt=""></center>
         </section>   
             </article>   
+
+            <div class="form-container">
+                <center><h1>Solicita una cita con un asesor de ventas</h1></center>
+                <h3>*  Citas presenciales se atenderán a su llegada</h3>
+                <h3>*  Citas virtuales recibiran un correo para agendar rangos de horario</h3>
+
+                <form id="citaForm">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" required>
+
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" required>
+
+                    <label for="telefono">Teléfono celular:</label>
+                    <input type="tel" id="telefono" required>
+
+                    <label for="correo">Correo electrónico:</label>
+                    <input type="email" id="correo" required>
+
+                    <label for="tipo_atencion">Tipo de atención:</label>
+                    <select id="tipo_atencion" required>
+                        <option style="background-color: black;" value="">Seleccione...</option>
+                        <option style="background-color: black;" value="presencial">Presencial</option>
+                        <option style="background-color: black;" value="virtual">Virtual</option>
+                    </select>
+
+                    <label for="fecha">Fecha de cita:</label>
+                    <input type="date" id="fecha" required>
+
+                    <button type="submit">Solicitar cita</button>
+                </form>
+            </div>
+            
     </main> 
 
     <center><footer style="background-color: black; color: whitesmoke;">
@@ -119,5 +187,38 @@
     </footer></center>
     <br>
     <br>
+
+    <script>
+        // funionamiento asignado al formulario 
+        document.getElementById('citaForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const nombre = document.getElementById('nombre').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const telefono = document.getElementById('telefono').value;
+            const correo = document.getElementById('correo').value;
+            const tipo_atencion = document.getElementById('tipo_atencion').value;
+            const fecha = document.getElementById('fecha').value;
+
+            const cita = {
+                nombre,
+                apellidos,
+                telefono,
+                correo,
+                tipo_atencion,
+                fecha,
+            };
+
+            let citas = JSON.parse(localStorage.getItem('citas')) || [];
+            citas.push(cita);
+            localStorage.setItem('citas', JSON.stringify(citas));
+
+            this.reset();
+
+            console.log('Cita guardada:', cita); 
+        });
+
+    </script>
+
 </body>
 </html>
